@@ -17,3 +17,63 @@ Key Metrics:
    
 ## Data Source
 The data is sourced from [GH Archive] (https://www.gharchive.org/). GH Archive was chosen because it provides hourly snapshots of GitHub activity, offering a good balance between freshness and simplicity of data loading.
+
+## Models
+Our GitHub Gems project utilizes the Kimball methodology, specifically employing a star schema to organize data into dimensional models. This structure allows users to easily query and analyze GitHub activity related to repository stars and commits.
+
+### Fact and Dimension Tables
+#### Fact Tables
+•	fact_stars: Tracks star events on repositories.
+            •	event_id: Unique identifier for the star event.
+            •	repo_id: Repository ID.
+            •	user_id: User ID who starred the repository.
+            •	event_date: Date of the star event.
+•	fact_commits: Records commit events in repositories.
+            •	event_id: Unique identifier for the commit event.
+            •	repo_id: Repository ID.
+            •	user_id: User ID who made the commit.
+            •	event_date: Date of the commit.
+#### Dimension Tables
+•	dim_repositories: Information about repositories.
+            •	repo_id: Unique repository identifier.
+            •	repo_name: Name of the repository.
+            •	owner_login: Repository owner's username.
+•	dim_users: User details.
+            •	user_id: Unique user identifier.
+            •	login: Username of the user.
+
+## Sample Queries
+Here are a few example queries to help you get started with analyzing the data:
+
+1. Count of Stars by Repository:
+```sql
+SELECT r.repo_name,
+COUNT(*) AS star_count FROM fact_stars
+AS s JOIN dim_repositories AS r
+ON s.repo_id = r.repo_id
+GROUP BY r.repo_name
+ORDER BY star_count DESC;
+``` 
+
+2. Commits Per User in a Specific Repository:
+```sql
+SELECT u.login, COUNT(*) AS commit_count
+FROM fact_commits AS c JOIN dim_users AS u
+ON c.user_id = u.user_id
+WHERE c.repo_id = 12345 -- Replace 12345 with the actual repo_id
+GROUP BY u.login
+ORDER BY commit_count DESC;
+```
+
+3. Final Aggregated Fact Table:
+
+```sql
+SELECT month, yoy_growth
+FROM fact_repo_stars_monthly
+WHERE repo_name = "plotly/plotly.py";
+```
+
+
+
+
+
