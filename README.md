@@ -33,8 +33,8 @@ Our GitHub Gems project utilizes the Kimball methodology, specifically employing
             •	repo_id: Repository ID.
             •	user_id: User ID who made the commit.
             •	event_date: Date of the commit.
-•	Dimension Tables
-            •	dim_repositories: Information about repositories.
+#### Dimension Tables
+•	dim_repositories: Information about repositories.
             •	repo_id: Unique repository identifier.
             •	repo_name: Name of the repository.
             •	owner_login: Repository owner's username.
@@ -46,12 +46,33 @@ Our GitHub Gems project utilizes the Kimball methodology, specifically employing
 Here are a few example queries to help you get started with analyzing the data:
 
 1. Count of Stars by Repository:
-
-SELECT r.repo_name, COUNT(*) AS star_count FROM fact_stars AS s JOIN dim_repositories AS r ON s.repo_id = r.repo_id GROUP BY r.repo_name ORDER BY star_count DESC; 
+```sql
+SELECT r.repo_name,
+COUNT(*) AS star_count FROM fact_stars
+AS s JOIN dim_repositories AS r
+ON s.repo_id = r.repo_id
+GROUP BY r.repo_name
+ORDER BY star_count DESC;
+``` 
 
 2. Commits Per User in a Specific Repository:
+```sql
+SELECT u.login, COUNT(*) AS commit_count
+FROM fact_commits AS c JOIN dim_users AS u
+ON c.user_id = u.user_id
+WHERE c.repo_id = 12345 -- Replace 12345 with the actual repo_id
+GROUP BY u.login
+ORDER BY commit_count DESC;
+```
 
-SELECT u.login, COUNT(*) AS commit_count FROM fact_commits AS c JOIN dim_users AS u ON c.user_id = u.user_id WHERE c.repo_id = 12345 -- Replace 12345 with the actual repo_id GROUP BY u.login ORDER BY commit_count DESC; 
+3. Final Aggregated Fact Table:
+
+```sql
+SELECT month, yoy_growth
+FROM fact_repo_stars_monthly
+WHERE repo_name = "plotly/plotly.py";
+```
+
 
 
 
