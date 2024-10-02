@@ -1,96 +1,28 @@
 # GitHub Gems: Driving Open-Source Investments With Data
 
-Welcome to the GitHub Gems project! This project hosts a data analytics pipeline that enables smarter investment decisions by measuring the popularity of open-source repos on Github.
+Welcome to GitHub Gems, a repository designed to track and analyze the popularity and development activity of open-source repositories on GitHub. The goal is to provide insights into key metrics that help users make informed decisions based on repository activity.
 
 ## Project Overview
 
-The goal of this project is to develop an efficient data pipeline that streamlines analytics, reduces manual effort, and enables deeper insights into the open-source ecosystem on GitHub. By leveraging modern data tools such as dbt (data build tool) and best practices such as dimensional modeling, we aim to create a scalable and reliable solution for data-driven decision-making.
+GitHub Gems provides a streamlined data pipeline for analyzing trends, reduces manual effort, and enables deeper insights into the open-source ecosystem in GitHub repositories. Using tools like DuckDB and dbt(data build tool) and best practices such as dimensional modeling, we aim to create a scalable and reliable solution for data-driven decision-making. The repository enables users to track the growth of repositories by analyzing their stars, commits, forks, and issues. This makes it easier to identify fast-growing repositories and track long-term trends in repository activity.
 
-## Getting Started
+## Key Metrics
+**Stars:** Track the growth and popularity of repositories over time.
+**Commits:** Monitor development activity with the frequency of commits.
+**Forks:** Measure how many times the repository has been forked, indicating user engagement.
+**Issues:** Analyze the number of open and closed issues for ongoing project discussions and maintenance.
 
-To get started with the GitHub Gems project, follow these steps (click on the
-links for guides):
+# Data Sources: GHArchive & GitHub API
 
-### Set up your IDE
+**GHArchive** provides historical GitHub data since 2011, making it ideal for bulk data analysis and long-term trends. It’s easy to query using SQL-like syntax with tools like Google BigQuery and offers free, comprehensive coverage of GitHub activities. However, its data updates daily (not real-time) and requires processing large datasets, which may be excessive for small, specific queries.
 
-> ℹ️ Skip some steps if you're already set!
->
-> If you already have git, VSCode, and/or Python installed, just skip the corresponding step(s).
+**GitHub API** allows real-time data fetching, is well-documented with REST and GraphQL interfaces, and enables fine-grained queries for focused data retrieval. On the downside, it has rate limits that can be restrictive for large requests, isn’t suited for historical data, and requires more complex integration for large-scale analysis.
 
-1. [Install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+**Conclusion:** While both data sources are valuable, GHArchive is more suitable for the long-term analysis required in this repository due to its extensive historical data and scalability with SQL queries. Therefore, we will use GHArchive as the primary data source for tracking repository popularity and activity trends.
 
-2. If you don't have a coding editor installed, [install VSCode](https://code.visualstudio.com/download). After that, [install the Python and Python extension](https://code.visualstudio.com/docs/languages/python#_install-python-and-the-python-extension).
+## Data Format
+The data is delivered in SQL database using DuckDB for storage and querying, ensuring efficient data retrieval for analysis. Additionally, data can be exported in CSV format for easier manipulation, and reports or dashboards are available for visualizing repository growth and trends.
 
-3. If you don't have Python 3 installed, [install it here](https://www.python.org/downloads/).
+## Update Frequency
+The data is refreshed daily to provide up-to-date insights into repository activity and trends, allowing users to track changes in real-time.
 
-### Create your personal repo
-
-1. [Create a new repo](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository) in your Github account and name it `github-stars-pipeline`.
-
-> ⚠️ **Make sure not to create your own README file when Github asks you!**
-
-2. Clone this repo.
-
-```bash
-git clone https://github.com/edsioufi/github-stars-pipeline.git
-```
-
-
-3. Point your local clone to your own remote (so that you can modify your copy of the repo, not the template). Make sure you replace `{your_github_username}` with the corresponding value.
-
-```bash
-cd github-stars-pipeline
-git remote set-url origin https://github.com/{your_github_username}/github-stars-pipeline.git
-```
-
-4. Push to your new github repo.
-
-```bash
-git push origin main
-```
-
-> ⚠️ Make sure you don't skip this step of pushing to main before proceeding, otherwise you won't find your main branch in your repo!
-
-### Set up your python environment and DuckDB
-
-1. Create a python virtual environment for your repo:
-
-```bash
-python -m venv venv
-source venv/bin/activate
-```
-
-2. [Install DuckDB](https://duckdb.org/docs/installation/?version=stable&environment=python) (make sure you select the Python option), your first python dependency.
-
-> ℹ️ You might have to install additional dependencies if you're on Windows.
-
-3. [Install DBeaver](https://duckdb.org/docs/guides/sql_editors/dbeaver.html) to explore DuckDB.
-
-4. Create a new git branch:
-```bash
-git checkout -b add_duck_db
-```
-
-5. Add your newly installed packages to your requirements file:
-```bash
-pip freeze > requirements.txt
-```
-
-6. Commit and push:
-```bash
-git add --all
-git commit
-git push origin -u add_duck_db
-```
-
-7. [Create a Pull Request (PR)](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request#creating-the-pull-request) in Github.
-
-> ℹ️ Choose your own `main` branch as the base, as we want to make each individual repo indepedent from this initial template repo.
-
-> 💡️ When naming a PR, try to choose an informative name that clearly reflects the changes made, e.g. "Fix bug X", "Refactor funcion F", or "Add feature A".
-
-8. Request a review from @edsioufi. You might need to [add me as a collaborator](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository#inviting-a-collaborator-to-a-personal-repository) to your repo first.
-
-> ⚠️ Do not merge your PR before it is reviewed and approved!
-
-9. [Merge your first PR](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request#merging-a-pull-request).
