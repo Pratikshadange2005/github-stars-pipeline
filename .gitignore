@@ -165,3 +165,9 @@ cython_debug/
 
 # PyCharm
 .idea/
+
+# Ignore database files
+*.db
+
+# Ignore temporary data folder
+data/tmp/
