@@ -42,12 +42,12 @@ def load_json_gz_files_in_duck_db(json_dir, duckdb_path):
 
     con.sql(query)
     print(f"New data loaded into source.src_gharchive.")
-
     con.close()
 
 if __name__ == "__main__":
     zip_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "gharchive_sample.zip")
     duckdb_path = 'github_stars.db'  
+
 
     with tempfile.TemporaryDirectory() as temp_dir:
         extract_zip_file(zip_file_path, temp_dir)
