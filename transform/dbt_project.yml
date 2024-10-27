@@ -32,5 +32,10 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   github_stars:
     # Config indicated by + and applies to all files under models/example/
-    example:
+    models:
+    your_project_name:
+    staging:
       +materialized: view
+
+    marts:
+      +materialized: table
