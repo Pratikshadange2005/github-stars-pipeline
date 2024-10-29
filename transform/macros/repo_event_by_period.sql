@@ -6,6 +6,6 @@ select distinct
   count(*) as {{ event_type }}_count,
   sum({{ event_type }}_count) over (partition by repo_id order by date_{{ period }}) as cumul_{{ event_type }}_count
 from {{ ref("stg_gharchive") }}
-where event_type = '{{ event_type | capitalize }}'
+where event_type = '{{ event_type}}'
 group by 1, 2, 3
 {%- endmacro %}
