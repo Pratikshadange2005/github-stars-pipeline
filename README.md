@@ -26,3 +26,8 @@ The data is delivered in SQL database using DuckDB for storage and querying, ens
 ## Update Frequency
 The data is refreshed daily to provide up-to-date insights into repository activity and trends, allowing users to track changes in real-time.
 
+## Project Lineage Diagram
+
+This project’s lineage is illustrated below:
+
+![Lineage Diagram](transform/docs/dbt_dag.png)
