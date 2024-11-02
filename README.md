@@ -31,3 +31,10 @@ The data is refreshed daily to provide up-to-date insights into repository activ
 This project’s lineage is illustrated below:
 
 ![Lineage Diagram](transform/docs/dbt_dag.png)
+
+### Cumulative Evaluation of Stars for Top 5 Repos Over Time
+
+![Cumulative Stars for Top 5 Repositories Over Time](transform/docs/Monthly_star_count.png)
+	
+This chart shows the cumulative star count over time for the top 5 repositories with the highest stars each year.
+
