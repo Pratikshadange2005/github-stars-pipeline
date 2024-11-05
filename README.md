@@ -36,5 +36,5 @@ This project’s lineage is illustrated below:
 
 ![Cumulative Stars for Top 5 Repositories Over Time](transform/docs/Monthly_star_count.png)
 	
-This chart shows the cumulative star count over time for the top 5 repositories with the highest stars each year.
+This chart shows the cumulative star count over time for the repositories with the highest stars each year.
 
